@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Teko:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap');
+
+:root {
+  --ff-primary: 'Teko', sans-serif;
+
+  --creme:       #f5eedc;
+  --creme-fonce: #e8dfc4;
+  --rouge:       #c8281e;
+  --rouge-fonce: #9e1e14;
+  --noir:        #1a1208;
+  --ocre:        #d4901a;
+  --ocre-clair:  #f0c040;
+  --vert:        #2a6b3c;
+  --texte:       #1a1208;
+  --texte-doux:  #5a4a2a;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+*:focus {
+  outline: 3px dotted var(--rouge);
+  outline-offset: 2px;
+}
+
+body {
+  font-family: 'Courier Prime', monospace;
+  min-height: 100vh;
+  background-color: var(--creme);
+  color: var(--texte);
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 2rem 2rem 3rem;
+  min-height: 100vh;
+  position: relative;
+  height: 100vh;
+}
+
+/* ==== Titre ==== */
+.title-game {
+  font-family: 'Alfa Slab One', serif;
+  font-size: 3rem;
+  color: var(--rouge);
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  position: relative;
+
+  /* Effet tampons imprimés */
+  text-shadow:
+    3px 3px 0px var(--rouge-fonce),
+    -1px -1px 0 var(--ocre);
+}
+
+.title-game::before {
+  content: '★';
+  color: var(--ocre);
+  font-size: 0.6em;
+  vertical-align: middle;
+}
+
+.title-game::after {
+  content: '★';
+  color: var(--ocre);
+  font-size: 0.6em;
+  vertical-align: middle;
+}
+
+/* ==== Résultats ==== */
+.game-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8rem;
+  padding: 3rem 2.5rem;
+  width: min(90%, 520px);
+  text-align: center;
+  animation: stampIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+
+  border: 4px solid var(--noir);
+  background: var(--creme-fonce);
+  box-shadow: 6px 6px 0 var(--noir);
+}
+
+/* Coins décoratifs */
+.game-results-container::before,
+.game-results-container::after {
+  content: '◆';
+  position: absolute;
+  font-size: 1.2rem;
+  color: var(--ocre);
+}
+.game-results-container::before { 
+  top: 8px; 
+  left: 12px; 
+}
+
+.game-results-container::after  { 
+  bottom: 8px; 
+  right: 12px; 
+}
+
+.game-results-container.won {
+  border-color: var(--vert);
+  box-shadow: 6px 6px 0 var(--vert);
+}
+
+.game-results-container.lost {
+  border-color: var(--rouge);
+  box-shadow: 6px 6px 0 var(--rouge);
+}
+
+.game-results-container h2 {
+  font-family: 'Alfa Slab One', serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.game-results-container.won h2  { 
+    color: var(--vert); 
+}
+
+.game-results-container.lost h2 { 
+    color: var(--rouge); 
+}
+
+.word-reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Teko', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+.word-reveal-content {
+  background: var(--noir);
+  border-radius: 0;
+  padding: 0.4rem 1.8rem;
+}
+
+.word-reveal strong {
+  font-family: 'Alfa Slab One', serif;
+  font-size: 2rem;
+  color: var(--ocre-clair);
+  letter-spacing: 0.25em;
+}
+
+.restart-button {
+  padding: 0.8rem 2.4rem;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: var(--rouge);
+  color: var(--creme);
+  border: 3px solid var(--noir);
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--noir);
+  transition: all 0.12s ease;
+}
+
+.restart-button:hover {
+  background: var(--rouge-fonce);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--noir);
+}
+
+.restart-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--noir);
+}
+
+@keyframes stampIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.85) rotate(-2deg);
+  }
+
+  to { 
+    opacity: 1; 
+    transform: scale(1) rotate(0deg); 
+  }
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(16px); 
+  }
+
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+

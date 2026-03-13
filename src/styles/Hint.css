@@ -1,0 +1,207 @@
+/* ==== HINT ==== */
+
+.hint {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  gap: 0.8rem;
+  z-index: 999;
+}
+
+.hint-validation {
+  display: none;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--creme-fonce), var(--creme));
+  border: 3px solid var(--noir);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--noir);
+  animation: popIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 280px;
+  margin-bottom: 0.5rem;
+}
+
+.hint-validation.active {
+  display: flex;
+}
+
+.hint-validation p {
+  font-family: var(--ff-primary);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texte);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.hint-validation-buttons {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.hint-validation button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  background-color: var(--ocre);
+  color: var(--texte);
+  border: 2px solid var(--noir);
+  border-radius: 0;
+  font-family: var(--ff-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hint-validation button:hover {
+  background-color: var(--ocre-clair);
+  transform: translate(-1px, -1px);
+}
+
+.hint-validation button:active {
+  transform: translate(1px, 1px);
+}
+
+.hint-validation button:nth-child(3) {
+  background-color: var(--vert);
+  color: var(--creme);
+}
+
+.hint-validation button:nth-child(3):hover {
+  background-color: #3a8b4c;
+}
+
+.hint p {
+  font-family: var(--ff-primary);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  margin: 0;
+  opacity: 0.8;
+}
+
+.hint button {
+  padding: 0.8rem 1.6rem;
+  background-color: var(--ocre);
+  color: var(--texte);
+  border: 2px solid var(--noir);
+  border-radius: 0;
+  font-family: var(--ff-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--noir);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hint-validation-buttons .refuse {
+    background-color: var(--rouge);
+    color: var(--creme);
+}
+
+.hint-validation-buttons .accept {
+    background-color: var(--vert);
+    color: var(--creme);
+}
+
+.hint button:hover {
+  background-color: var(--ocre-clair);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--noir);
+}
+
+.hint button:active {
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 var(--noir);
+}
+
+.hint button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--texte-doux);
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==== HINT ====
+
+.hint {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  gap: 0.5rem;
+}
+
+.hint button {
+  padding: 0.8rem 1.6rem;
+  background-color: var(--ocre);
+  color: var(--texte);
+  border: 2px solid var(--noir);
+  border-radius: 0;
+  font-family: var(--ff-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--noir);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.hint button:hover {
+  background-color: var(--ocre-clair);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--noir);
+}
+
+.hint button:active {
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 var(--noir);
+}
+
+.hint button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--texte-doux);
+}
+
+.hint-counter {
+  text-align: center;
+  font-family: var(--ff-primary);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+.hint-validation {
+    position: fixed;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--creme-fonce);
+    padding: 3rem 2rem; 
+} */

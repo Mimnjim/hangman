@@ -1,0 +1,113 @@
+.hangman {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: min(92%, 580px);
+  animation: fadeUp 0.4s ease 0.1s both;
+}
+
+/* ==== Compteur tentatives ==== */
+.hangman > p:first-child {
+  font-family: 'Teko', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--creme);
+  background: var(--rouge);
+  border: 2px solid var(--noir);
+  border-radius: 0;
+  padding: 0.3rem 1.4rem;
+  box-shadow: 3px 3px 0 var(--noir);
+}
+
+/* ==== Mot à deviner ==== */
+h1 {
+  font-family: 'Teko', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+
+  background: var(--creme-fonce);
+  border: 3px solid var(--noir);
+  padding: 1.2rem 2rem;
+  width: 100%;
+}
+
+.all-letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.all-letters span {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 2.2rem;
+  padding-bottom: 0.2rem;
+
+  font-family: 'Alfa Slab One', serif;
+  font-size: 2rem;
+  color: var(--noir);
+  border-bottom: 4px solid var(--noir);
+  transition: color 0.15s;
+  line-height: 1.1;
+}
+
+.no-letter {
+  display: none;
+  border-bottom: none !important;
+}
+
+/* ==== Tableaux de lettres ==== */
+.hangman > p {
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--texte-doux);
+  text-align: center;
+  line-height: 2;
+  background: var(--creme-fonce);
+  border: 2px solid var(--noir);
+  padding: 0.7rem 1.2rem;
+  width: 100%;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 var(--ocre);
+}
+
+.hangman > p span {
+  display: inline-block;
+  background: var(--ocre-clair);
+  color: var(--noir);
+  border: 1.5px solid var(--noir);
+  border-radius: 0;
+  padding: 0 0.4rem;
+  margin: 0.1rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  box-shadow: 1px 1px 0 var(--noir);
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(12px); 
+  }
+
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}

@@ -1,0 +1,80 @@
+.alphabets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  width: min(92%, 600px);
+  animation: fadeUp 0.4s ease;
+
+  /* Encadré style panneau de foire */
+  background: var(--creme-fonce);
+  border: 3px solid var(--noir);
+  box-shadow: 5px 5px 0 var(--ocre);
+  padding: 1rem;
+}
+
+.letter-button {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Teko', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--noir);
+
+  background: var(--creme);
+  border: 2px solid var(--noir);
+  border-radius: 0;
+  cursor: pointer;
+
+  box-shadow: 2px 2px 0 var(--noir);
+  transition: all 0.1s ease;
+}
+
+.letter-button:hover:not(:disabled) {
+  background: var(--ocre-clair);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--noir);
+}
+
+.letter-button:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--noir);
+}
+
+/* Lettre correcte devinée */
+.letter-button.correct,
+.letter-button:disabled.correct {
+  background: var(--vert);
+  color: var(--creme);
+  border-color: var(--vert);
+  box-shadow: 2px 2px 0 #1a3d24;
+}
+
+/* Lettre incorrecte proposée */
+.letter-button.disabled,
+.letter-button:disabled {
+  background: var(--rouge);
+  color: var(--creme);
+  border-color: var(--rouge-fonce);
+  box-shadow: 2px 2px 0 var(--rouge-fonce);
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(12px); 
+  }
+
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
