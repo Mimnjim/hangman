@@ -6,7 +6,6 @@ export default function Keyboard( {word, guessedLetters, setGuessedLetters, wron
             setGuessedLetters([...guessedLetters, letter]); // il faut créer un nouveau tableau pour que React détecte le changement d'état
         } else {
             setWrongAttempts(wrongAttempts - 1);
-            // alert("Mauvaise lettre !");
         }
         setAllLettersProposed([...allLettersProposed, letter]);
     }

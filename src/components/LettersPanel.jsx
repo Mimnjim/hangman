@@ -1,4 +1,4 @@
-export default function Debug ( {guessedLetters, allLettersProposed } ) {
+export default function LettersPanel ( {guessedLetters, allLettersProposed } ) {
     const handleClickDebug = (e) => {
         e.preventDefault();
         const table = document.querySelector(".table-letters");
