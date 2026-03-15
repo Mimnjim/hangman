@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getNewWord } from "./use_api"
 import Hangman from "./components/Hangman";
 import Keyboard from "./components/Keyboard";
@@ -14,19 +14,13 @@ import './styles/Hint.css';
 export function App() {
 
   // ==== VARIABLES D'ÉTAT ====
-    // On crée une variable qui contiendra le mot à deviner / Changera l'état du mot à deviner
   const [ word, setWord ] = useState(null); 
-
-    // On crée une variable qui contiendra les lettres déjà proposées par l'utilisateur / Changera l'état des lettres déjà proposées
   const [guessedLetters, setGuessedLetters] = useState([]);
-
-    // On crée une variable qui contiendra toutes les lettres proposées par l'utilisateur / Changera l'état de toutes les lettres proposées
   const [allLettersProposed, setAllLettersProposed] = useState([]);
-
-    // On crée une variable qui contiendra le nombre de tentatives restantes / Changera l'état du nombre de tentatives restantes
   const [wrongAttempts, setWrongAttempts] = useState(6);
 
-
+  // ==== REF POUR STOCKER L'ÉTAT ACTUEL ====
+  const gameStateRef = useRef(null);
 
   useEffect(() => {
     // On récupère un mot depuis l'API
@@ -47,42 +41,51 @@ export function App() {
   const isWon = checkWin();
   const gameOver = isLost || isWon;
 
-  // ==== GESTION DE LA SAISIE AU CLAVIER ====
-  const handleKeyboardInput = (letter) => {
-    // Vérifier que la lettre n'a pas déjà été proposée
-    if (allLettersProposed.includes(letter)) {
-      return;
-    }
-
-    // Vérifier si c'est une bonne lettre
-    if (word && word.toLowerCase().includes(letter.toLowerCase())) {
-      setGuessedLetters([...guessedLetters, letter]);
-    } else {
-      setWrongAttempts(wrongAttempts - 1);
-    }
-    setAllLettersProposed([...allLettersProposed, letter]);
-  }
-
+  // Mettre à jour le ref avec l'état actuel (sans causer de re-render)
   useEffect(() => {
+    gameStateRef.current = {
+      word: word,
+      guessedLetters: guessedLetters,
+      allLettersProposed: allLettersProposed,
+      wrongAttempts: wrongAttempts
+    };
+  }, [word, guessedLetters, allLettersProposed, wrongAttempts]);
+
+  // ==== GESTION DE LA SAISIE AU CLAVIER ====
+  useEffect(() => {
+    if (gameOver) return; // Ne pas écouter les touches si le jeu est terminé
+
     const handleKeyPress = (event) => {
-      // Vérifier que c'est une lettre (A-Z ou a-z)
+      // On vérifie que c'est bien une lettre (A-Z ou a-z)
       if (/^[a-zA-Z]$/.test(event.key)) {
         event.preventDefault();
         const letter = event.key.toUpperCase();
-        handleKeyboardInput(letter);
+
+        // On utilise le ref pour accéder à l'état actuel sans re-render
+        const state = gameStateRef.current;
+
+        // On vérifie que la lettre n'a pas déjà été proposée
+        if (state.allLettersProposed.includes(letter)) {
+          return;
+        }
+
+        // On vérifie si c'est une bonne lettre
+        if (state.word && state.word.toLowerCase().includes(letter.toLowerCase())) {
+          setGuessedLetters([...state.guessedLetters, letter]);
+        } else {
+          setWrongAttempts(state.wrongAttempts - 1);
+        }
+        setAllLettersProposed([...state.allLettersProposed, letter]);
       }
     };
 
-    // Ajouter l'écouteur quand le jeu est en cours
-    if (!gameOver) {
-      window.addEventListener('keydown', handleKeyPress);
-    }
+    window.addEventListener('keydown', handleKeyPress);
 
     // Nettoyer l'écouteur
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [word, guessedLetters, allLettersProposed, wrongAttempts, gameOver])
+  }, [gameOver]); // Dépend UNIQUEMENT de l'état gameOver
 
   const handleRestart = () => {
     setWord(null);
@@ -94,8 +97,7 @@ export function App() {
     });
   }
 
-  // ==== AFFICHAGE
-
+  // ==== AFFICHAGE ====
 
   // Écran de victoire
   if (isWon) {
