@@ -150,7 +150,6 @@ export function App() {
         word={word}
         wrongAttempts={wrongAttempts}
         guessedLetters={guessedLetters}
-        allLettersProposed={allLettersProposed}
       />
 
       <LettersPanel 

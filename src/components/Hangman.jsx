@@ -1,4 +1,4 @@
-export default function Hangman( {word, wrongAttempts, guessedLetters, allLettersProposed} ) {
+export default function Hangman( {word, wrongAttempts, guessedLetters} ) {
     return (
         <div className="hangman">
             <p>Vous avez : {wrongAttempts} tentatives</p>
@@ -6,7 +6,7 @@ export default function Hangman( {word, wrongAttempts, guessedLetters, allLetter
                 Mot à deviner : <br />
                 {/* {word} */}
                 <div className="all-letters">
-                    {displayWord({word, guessedLetters})}
+                    {renderAnswer({word, guessedLetters})}
                 </div>
             </h1>
         </div>
@@ -28,28 +28,7 @@ export function renderAnswer( {word, guessedLetters} ) {
                 results.push(<span key={i}>_ </span>)
             }
         }
+        console.log(results);
     }
     return results;
-}
-
-
-export function displayWord( {word, guessedLetters} ) {
-    return renderAnswer({word, guessedLetters});
-}
-
-export function checkWin( {word, guessedLetters} ) {
-    if(word) {
-        let wordSplitted = word.split("");
-        for(let i=0; i < word.length; i++) {
-            if(wordSplitted[i] !== " " && !guessedLetters.includes(wordSplitted[i].toUpperCase())) {
-                return false;
-            }
-        }
-        return true;
-    }
-    return false;
-}
-
-export function checkLose( {wrongAttempts} ) {
-    return wrongAttempts <= 0;
 }
