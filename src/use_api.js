@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3333';
+// const API_URL = 'http://localhost:3333';
+const API_URL = 'https://hangman.alexischarp.fr/';
 
 export async function getNewWord(language = 'fr') {
     let locale = 'fr-FR';
