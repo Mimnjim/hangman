@@ -1,5 +1,9 @@
 import { useEffect, useState, useRef } from "react";
+
 import { getNewWord } from "./use_api"
+import { translations } from "./translations";
+import { removeAccents } from "./normalize";
+
 import Hangman from "./components/Hangman";
 import Keyboard from "./components/Keyboard";
 import LettersPanel from "./components/LettersPanel";
@@ -19,22 +23,19 @@ export function App() {
   const [allLettersProposed, setAllLettersProposed] = useState([]);
   const [wrongAttempts, setWrongAttempts] = useState(6);
 
+const [language, setLanguage] = useState(() => {
+  const saved = localStorage.getItem('language');
+  return saved || 'fr';
+});
+
   // ==== REF POUR STOCKER L'ÉTAT ACTUEL ====
   const gameStateRef = useRef(null);
-
-  useEffect(() => {
-    // On récupère un mot depuis l'API
-    getNewWord()
-      .then(data => {
-        setWord(data.word)
-      });
-  }, [])
 
   // ==== LOGIQUE DE JEU ====
   const checkWin = () => {
     if(!word) return false;
     const cleanWord = word.toLowerCase().replaceAll("-", "");
-    return cleanWord.split("").every(letter => guessedLetters.includes(letter.toUpperCase()));
+    return cleanWord.split("").every(letter => guessedLetters.includes(removeAccents(letter.toUpperCase())));
   }
 
   const isLost = wrongAttempts <= 0;
@@ -70,8 +71,7 @@ export function App() {
         }
 
         // On vérifie si c'est une bonne lettre
-        if (state.word && state.word.toLowerCase().includes(letter.toLowerCase())) {
-          setGuessedLetters([...state.guessedLetters, letter]);
+      if (state.word && removeAccents(state.word.toLowerCase()).includes(removeAccents(letter.toLowerCase()))) {          setGuessedLetters([...state.guessedLetters, letter]);
         } else {
           setWrongAttempts(state.wrongAttempts - 1);
         }
@@ -87,12 +87,30 @@ export function App() {
     };
   }, [gameOver]); // Dépend UNIQUEMENT de l'état gameOver
 
+    // ==== GESTION DE LA LANGUE & MOT ALEATOIRE ====
+    useEffect(() => {
+      // Quand la langue change, on récupère un nouveau mot
+      setWord(null);
+      setGuessedLetters([]);
+      setAllLettersProposed([]);
+      setWrongAttempts(6);
+      getNewWord(language).then(data => {
+        setWord(data.word);
+      });
+    }, [language]); // Dépend du changement de langue
+
+
+    // Pour actualiesr le localStorage à chaque changement de langue
+    useEffect(() => {
+      localStorage.setItem('language', language);
+    }, [language]);
+
   const handleRestart = () => {
     setWord(null);
     setGuessedLetters([]);
     setAllLettersProposed([]);
     setWrongAttempts(6);
-    getNewWord().then(data => {
+    getNewWord(language).then(data => {
       setWord(data.word);
     });
   }
@@ -103,13 +121,11 @@ export function App() {
   if (isWon) {
     return (
       <main className="page-game">
-        <h1 className="title-game">Hangman Game</h1>
+        <h1 className="title-game">{translations[language].title}</h1>
         <div className="game-results-container won">
-          <h2>Bravo, <br /> tu as gagné !</h2>
-          <p className="word-reveal">Le mot était :
-            <div className="word-reveal-content"><strong>{word}</strong></div>
-          </p>
-          <button className="restart-button" onClick={handleRestart}>Recommencer</button>
+          <h2>{translations[language].won}</h2>
+          <p className="word-reveal">{translations[language].wordWas} <div className="word-reveal-content"><strong>{word}</strong></div></p>
+          <button className="restart-button" onClick={handleRestart}>{translations[language].restart}</button>
         </div>
       </main>
     );
@@ -119,13 +135,11 @@ export function App() {
   if (isLost) {
     return (
       <main className="page-game">
-        <h1 className="title-game">Hangman Game</h1>
+        <h1 className="title-game">{translations[language].title}</h1>
         <div className="game-results-container lost">
-          <h2>Game Over, <br /> tu as perdu !</h2>
-          <p className="word-reveal">Le mot était :
-            <div className="word-reveal-content"><strong>{word}</strong></div>
-          </p>
-          <button className="restart-button" onClick={handleRestart}>Recommencer</button>
+          <h2>{translations[language].lost}</h2>
+          <p className="word-reveal">{translations[language].wordWas} <div className="word-reveal-content"><strong>{word}</strong></div></p>
+          <button className="restart-button" onClick={handleRestart}>{translations[language].restart}</button>
         </div>
       </main>
     );
@@ -134,7 +148,7 @@ export function App() {
   // Écran de jeu (par défaut)
   return (
     <main className="page-game">
-      <h1 className="title-game">Hangman Game</h1>
+      <h1 className="title-game">{translations[language].title}</h1>
 
       <Keyboard
         word={word}
@@ -150,11 +164,22 @@ export function App() {
         word={word}
         wrongAttempts={wrongAttempts}
         guessedLetters={guessedLetters}
+        language={language}
       />
+
+      <div className="language-button-container">
+        <button className="language-button" onClick={() => setLanguage('fr')}>
+            🇫🇷-FR
+        </button>
+        <button className="language-button" onClick={() => setLanguage('en')}>
+            en-GB
+        </button>
+      </div>
 
       <LettersPanel 
         guessedLetters={guessedLetters} 
         allLettersProposed={allLettersProposed}
+        language={language}
       />
 
       <Hint 
@@ -162,8 +187,8 @@ export function App() {
         guessedLetters={guessedLetters} 
         setGuessedLetters={setGuessedLetters} 
         setWrongAttempts={setWrongAttempts}
+        language={language}
       />
-
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
+import { translations } from "../translations";
 
-export default function Hint({ word, guessedLetters, setGuessedLetters, setWrongAttempts }) {
+export default function Hint({ word, guessedLetters, setGuessedLetters, setWrongAttempts, language = 'fr' }) {
     const nbOfHints = 3;
     const [hintUsed, setHintUsed] = useState(0);
     const [showValidation, setShowValidation] = useState(false);
@@ -45,21 +46,39 @@ export default function Hint({ word, guessedLetters, setGuessedLetters, setWrong
         setShowValidation(false);
     }
 
+    // return (
+    //     <div className="hint">
+    //         <div className={`hint-validation ${showValidation ? 'active' : ''}`}>
+    //             <p>
+    //                 Êtes-vous sûr d'utiliser un indice ? <br />
+    //                 {hintUsed} / {nbOfHints} utilisés
+    //             </p>
+    //             <div className="hint-validation-buttons">
+    //                 <button onClick={handleCancelHint} className="refuse">Non</button>
+    //                 <button onClick={handleConfirmHint} className="accept">Oui</button>
+    //             </div>
+    //         </div>    
+
+    //         <p>Bloquer ? Utilisez un indice <br/> (mais vous perdez une tentative)</p>
+    //         <button onClick={handleClickHint} disabled={hintUsed >= nbOfHints}>💡 Indice</button>
+    //     </div>
+    // )
+
     return (
         <div className="hint">
             <div className={`hint-validation ${showValidation ? 'active' : ''}`}>
                 <p>
-                    Êtes-vous sûr d'utiliser un indice ? <br />
-                    {hintUsed} / {nbOfHints} utilisés
+                    {translations[language].hintConfirm} <br />
+                    {hintUsed} / {nbOfHints} {translations[language].used}
                 </p>
                 <div className="hint-validation-buttons">
-                    <button onClick={handleCancelHint} className="refuse">Non</button>
-                    <button onClick={handleConfirmHint} className="accept">Oui</button>
+                    <button onClick={handleCancelHint} className="refuse">{translations[language].no}</button>
+                    <button onClick={handleConfirmHint} className="accept">{translations[language].yes}</button>
                 </div>
             </div>    
 
-            <p>Bloquer ? Utilisez un indice <br/> (mais vous perdez une tentative)</p>
-            <button onClick={handleClickHint} disabled={hintUsed >= nbOfHints}>💡 Indice</button>
+            <p>{translations[language].blockedUseHint}</p>
+            <button onClick={handleClickHint} disabled={hintUsed >= nbOfHints}>{translations[language].hintButton}</button>
         </div>
     )
 }

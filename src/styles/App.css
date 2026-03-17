@@ -190,6 +190,33 @@ main {
   box-shadow: 2px 2px 0 var(--noir);
 }
 
+.language-button-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+button.language-button {
+  /* position: fixed; */
+  top: 1rem;
+  right: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--ocre);
+  color: var(--creme);
+  border: 2px solid var(--noir);
+  border-radius: 0;
+  font-family: var(--ff-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--noir);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 @keyframes stampIn {
   from { 
     opacity: 0; 
@@ -213,4 +240,5 @@ main {
     transform: translateY(0); 
   }
 }
+
 

@@ -1,6 +1,7 @@
 import { useRef } from 'react';
+import { translations } from "../translations";
 
-export default function LettersPanel ( {guessedLetters, allLettersProposed } ) {
+export default function LettersPanel ( {guessedLetters, allLettersProposed, language = 'fr'} ) {
     const tableRef = useRef(null);
     const buttonDebugRef = useRef(null);
 
@@ -22,17 +23,19 @@ export default function LettersPanel ( {guessedLetters, allLettersProposed } ) {
                 ref={buttonDebugRef}
                 onClick={handleClickDebug} 
                 className="debug-button">
-                Afficher les infos sur vos tentatives
+                {translations[language].showAttempts}
             </button>
             <div ref={tableRef} className="table-letters">
-                <button onClick={handleClickDebug} className="close">Fermer</button>
+                <button onClick={handleClickDebug} className="close">
+                    {translations[language].close}
+                </button>
                 <div className="table-letters__content">
-                    <p>Lettres devinées : <br />
+                    <p>{translations[language].guessedLetters} <br />
                         {guessedLetters.map((letter, index) => (
                         <span key={index}>{letter}</span>
                         ))}
                     </p> <br />
-                    <p>Toutes les lettres : <br />
+                    <p>{translations[language].allLetters} <br />
                         {allLettersProposed.map((letter, index) => (
                         <span key={index}>{letter}</span>
                         ))}

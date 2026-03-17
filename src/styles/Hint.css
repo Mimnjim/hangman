@@ -91,7 +91,8 @@
 .hint button {
   padding: 0.8rem 1.6rem;
   background-color: var(--ocre);
-  color: var(--texte);
+  /* color: var(--texte); */
+  color: #fff;
   border: 2px solid var(--noir);
   border-radius: 0;
   font-family: var(--ff-primary);
