@@ -170,7 +170,7 @@ const [language, setLanguage] = useState(() => {
       <div className="language-button-container">
         <button className="language-button" onClick={() => setLanguage('fr')}>
             🇫🇷-FR
-        </button>
+        </button> /
         <button className="language-button" onClick={() => setLanguage('en')}>
             en-GB
         </button>

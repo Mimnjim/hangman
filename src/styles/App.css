@@ -195,11 +195,48 @@ main {
   top: 1rem;
   right: 1rem;
   display: flex;
+  gap: 0.6rem;
+  padding: 0.5rem;
+  background-color: var(--creme-fonce);
+  border: 2px solid var(--noir);
+  /* box-shadow: 3px 3px 0 var(--noir); */
+}
+
+button.language-button {
+  padding: 0.5rem 1rem;
+  background-color: var(--ocre);
+  color: var(--noir);
+  border: none;
+  border-radius: 0;
+  font-family: var(--ff-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.1s ease;
+  /* box-shadow: 3px 3px 0 var(--noir); */
+}
+
+button.language-button:hover {
+  background-color: var(--ocre-clair);
+  transform: translate(-1px, -1px);
+}
+
+button.language-button:active {
+  transform: translate(1px, 1px);
+}
+
+/* .language-button-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
   gap: 0.8rem;
 }
 
 button.language-button {
-  /* position: fixed; */
   top: 1rem;
   right: 1rem;
   padding: 0.6rem 1.2rem;
@@ -215,7 +252,7 @@ button.language-button {
   cursor: pointer;
   box-shadow: 4px 4px 0 var(--noir);
   transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+} */
 
 @keyframes stampIn {
   from { 
