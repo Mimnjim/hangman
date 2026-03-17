@@ -32,9 +32,9 @@ export default function Hint({ word, guessedLetters, setGuessedLetters, setWrong
                 Math.floor(Math.random() * unguessedLetters.length)
             ].toUpperCase();
             
-            setGuessedLetters([...guessedLetters, randomLetter]);
-            setWrongAttempts(prev => prev - 1);
-            setHintUsed(prev => prev + 1);
+            setGuessedLetters(guessedLetters =>[...guessedLetters, randomLetter]);
+            setWrongAttempts(wrongAttempts => wrongAttempts - 1);
+            setHintUsed(hintUsed => hintUsed + 1);
             setShowValidation(false);
         }
 

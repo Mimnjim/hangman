@@ -7,7 +7,7 @@ export default function Keyboard( {word, guessedLetters, setGuessedLetters, wron
         } else {
             setWrongAttempts(wrongAttempts - 1);
         }
-        setAllLettersProposed([...allLettersProposed, letter]);
+        setAllLettersProposed(allLettersProposed => [...allLettersProposed, letter]);
     }
 
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

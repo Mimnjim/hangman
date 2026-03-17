@@ -21,7 +21,7 @@ export function renderAnswer( {word, guessedLetters} ) {
 
         for(let i=0; i < word.length; i++) {
             if(wordSplitted[i] === " ") {
-                results.push(<span class="no-letter" key={i}>&nbsp; &nbsp; </span>) // Afficher un espace réel pour séparation
+                results.push(<span className="no-letter" key={i}>&nbsp; &nbsp; </span>) // Afficher un espace réel pour séparation
             } else if(guessedLetters.includes(wordSplitted[i].toUpperCase())) {
                 results.push(<span key={i}>{wordSplitted[i].toUpperCase()} </span>)
             } else {
